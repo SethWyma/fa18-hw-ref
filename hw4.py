@@ -13,7 +13,22 @@ most_common_char
 Given an input string s, return the most common character in s.
 """
 def most_common_char(s):
-	pass
+
+	myString = s
+	dict = {}
+
+	for n in range(len(myString)):
+		if not myString[n] in dict:
+			dict[myString[n]] = 1
+		else:
+			dict[myString[n]] += 1
+
+	mostCommon = ['', 0]
+	for key, value in dict.items():
+		if value > mostCommon[1]:
+			mostCommon[0], mostCommon[1] = key, value
+
+	return mostCommon[0]
 
 
 """
@@ -36,8 +51,17 @@ Example 2:
 	Return:
 		None
 """
+
+
 def alphabet_finder(s):
-	pass
+	alphabet = list(map(chr, range(97, 123)))
+
+	for i in range(len(s)):
+		if s[i].lower() in alphabet:
+			alphabet.remove(s[i].lower())
+			if not alphabet: return s[0:i + 1]
+
+	return None
 
 
 """
@@ -55,6 +79,8 @@ Example:
 	Return:
 		[1, 6]
 """
+
+
 def longest_unique_subarray(arr):
 	pass
 
@@ -162,7 +188,17 @@ Example 2:
 		4294967296 ** (1 / 16) (i.e., 4)
 """
 def happy_numbers(n):
-	pass
+	happyNums = {1, 7, 10, 13, 19, 23, 28, 31, 32, 44, 49, 68, 70, 79, 82, 86, 91, 94, 97, 100}
+	squares = {'0': 0, '1': 1, '2': 4, '3': 9, '4': 16, '5': 25, '6': 36, '7': 49, '8': 64, '9': 81}
+	amount = 0
+
+	for num in range(1, n + 1):
+		while num >= 100:
+			num = sum(squares.get(digit) for digit in list(str(num)))
+		if num in happyNums:
+			amount += 1
+
+	return amount
 
 
 """
@@ -194,6 +230,6 @@ Example 2:
 		[1, 2]
 """
 def zero_sum_subarray(arr):
-    pass 
+	pass
 
 
