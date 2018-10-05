@@ -14,14 +14,12 @@ Given an input string s, return the most common character in s.
 """
 def most_common_char(s):
 
-	myString = s
-	dict = {}
+	myString, dict = s, {}
 
 	for n in range(len(myString)):
 		if not myString[n] in dict:
 			dict[myString[n]] = 1
-		else:
-			dict[myString[n]] += 1
+		else: dict[myString[n]] += 1
 
 	mostCommon = ['', 0]
 	for key, value in dict.items():
@@ -125,7 +123,21 @@ Example 3:
 		False
 """
 def string_my_one_true_love(s):
-	pass
+	myString, dict = s, {}
+	for n in range(len(myString)):
+		if not myString[n] in dict:
+			dict[myString[n]] = 1
+		else: dict[myString[n]] += 1
+
+	if len(set(dict.values())) == 1: return True
+
+	for value in dict.values():
+		value -= 1
+		if len(set(dict.values())) == 1: return True
+		if value == 0 and len(set(dict.values())) == 2: return True
+		value += 1
+
+	return False
 
 
 """
