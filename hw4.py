@@ -14,7 +14,7 @@ Given an input string s, return the most common character in s.
 """
 def most_common_char(s):
 
-	myString, dict = s, {}
+	myString, dict = s.lower(), {}
 
 	for n in range(len(myString)):
 		if not myString[n] in dict:
@@ -78,9 +78,18 @@ Example:
 		[1, 6]
 """
 
-
 def longest_unique_subarray(arr):
-	pass
+	longest, bestA = -1, 0
+	for a in range(len(arr)):
+		for b in range(len(arr) - a):
+			if len(set(arr[a:a+b])) == len(arr[a:a+b]):
+				if b > longest: bestA, longest = a, b
+			else: break
+		if longest > len(arr) - a: break
+	return [bestA, longest]
+
+#print(longest_unique_subarray([1,2,3,1,4,5,6,7,3,2,0,9,5,2,1,7,4,9]))
+#print(longest_unique_subarray([1,2,3,1,4,5,6]))
 
 
 """
@@ -131,11 +140,11 @@ def string_my_one_true_love(s):
 
 	if len(set(dict.values())) == 1: return True
 
-	for value in dict.values():
-		value -= 1
+	for key, value in dict.items():
+		dict[key] -= 1
 		if len(set(dict.values())) == 1: return True
 		if value == 0 and len(set(dict.values())) == 2: return True
-		value += 1
+		dict[key] += 1
 
 	return False
 
@@ -155,8 +164,16 @@ Example:
 		1961
 """
 def alive_people(data):
-	pass
+	candidateYears = [[item[0], 0] for item in data]
+	for year in candidateYears:
+		for item in data:
+			if item[0] <= year[0] <= item[0] + item[1]:
+				year[1] += 1
+	candidateYears.sort(key = lambda elem: (elem[1], elem[0]))
+	return candidateYears[-1][0]
 
+
+#alive_people([[1920, 80], [1940, 22], [1961, 10], [1965, 17], [1944, 19], [1900, 90], [2000, 18], [1944, 55]])
 
 """
 three_sum
