@@ -81,15 +81,12 @@ Example:
 def longest_unique_subarray(arr):
 	longest, bestA = -1, 0
 	for a in range(len(arr)):
-		for b in range(len(arr) - a):
+		for b in range(len(arr) - a + 1):
 			if len(set(arr[a:a+b])) == len(arr[a:a+b]):
 				if b > longest: bestA, longest = a, b
 			else: break
 		if longest > len(arr) - a: break
 	return [bestA, longest]
-
-#print(longest_unique_subarray([1,2,3,1,4,5,6,7,3,2,0,9,5,2,1,7,4,9]))
-#print(longest_unique_subarray([1,2,3,1,4,5,6]))
 
 
 """
@@ -222,7 +219,7 @@ def happy_numbers(n):
 	amount = 0
 
 	for num in range(1, n + 1):
-		while num >= 100:
+		while num > 100:
 			num = sum(squares.get(digit) for digit in list(str(num)))
 		if num in happyNums:
 			amount += 1
@@ -259,6 +256,10 @@ Example 2:
 		[1, 2]
 """
 def zero_sum_subarray(arr):
-	pass
+	for a in range(len(arr)):
+		for b in range(len(arr) - a):
+			if sum(arr[a:a + b + 1]) == 0:
+				return [a,b + 1]
+	return None
 
-
+#myArr = [-56, 76, 29, -7, 12, -31, -4, 34, 56, -9, 5, 17, 62, -44, -2, 11, -27, 9, 10, 43]
